@@ -1,5 +1,5 @@
 #include <iostream>
-#include "newton.h"
+#include "zero_approx.h"
 
 
 using namespace std;
@@ -53,8 +53,14 @@ int main(void)
     double nmax = 100;
 
 
+    std::cout << "1. Newton:\n";
     std::cout << "Estimativa inicial: " << x0 << std::endl;
     double xm = newton(x0, water, df_water, tol, nmax);
+
+    std::cout << "2. Bisseção:\n";
+
+    xm = bisection(water, 0, 45, 1e-3, 40);
+    std::cout << "Solução encontrada: " << xm << std::endl;
 
     return 0;
 }
