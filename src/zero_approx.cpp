@@ -74,3 +74,29 @@ double bisection(single_variable_function f, double a, double b, double tol, int
 
     return xm;
 }
+
+double secant(double xa, double xb, single_variable_function f, double tol, int nmax)
+{
+    int i;
+
+    double x, e;
+    for(i = 0; i < nmax; i++)
+    {
+        x = ((xa * f(xb) - xb * f(xa))/(f(xb) - f(xa)));
+
+        e = fabs(x - xb)/fabs(x);
+
+        if(e < tol)
+            break;
+
+        xa = xb;
+        xb = x;
+    }
+
+    if(i == nmax)
+        std::cout << "Solução obtida em " << nmax << " iterações.\n";
+    else
+        std::cout << "Solução obtida: x = " << x << std::endl;
+
+    return x;
+}

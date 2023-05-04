@@ -52,15 +52,34 @@ int main(void)
     double tol = 1e-3;
     double nmax = 100;
 
+    clock_t begin_time, end_time;
+
 
     std::cout << "1. Newton:\n";
     std::cout << "Estimativa inicial: " << x0 << std::endl;
+    begin_time = clock();
     double xm = newton(x0, water, df_water, tol, nmax);
+    end_time = clock();
+
+    std::cout << "TEMPO (Newton): " << (double)(end_time - begin_time) / CLOCKS_PER_SEC << std::endl;
 
     std::cout << "2. Bisseção:\n";
-
+    begin_time = clock();
     xm = bisection(water, 0, 45, 1e-3, 40);
+    end_time = clock();
     std::cout << "Solução encontrada: " << xm << std::endl;
+    std::cout << "TEMPO (Bisseção): " << (double)(end_time - begin_time) / CLOCKS_PER_SEC << std::endl;
+
+    double xa = 35.0;
+    double xb = 42.0;
+
+
+    std::cout << "3. Secante:\n";
+    begin_time = clock();
+    xm = secant(xa, xb, water, tol, nmax);
+    end_time = clock();
+    std::cout << "TEMPO (Secante): " << (double)(end_time - begin_time) / CLOCKS_PER_SEC << std::endl;
+
 
     return 0;
 }

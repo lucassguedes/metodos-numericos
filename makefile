@@ -4,7 +4,7 @@ obj = $(src:.cpp=.o)
 
 CXXFLAGS = -std=c++11 -I include/ -O3
 
-newton: $(obj)
+zero_approx: $(obj)
 	$(CXX) -g -o $@ $^ $(CXXFLAGS)
 clean:
-	rm -rf *o newton
+	rm -rf *o zero_approx
