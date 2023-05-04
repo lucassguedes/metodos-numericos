@@ -15,15 +15,46 @@ double df(double x)
     return -1.8*x + 1.7;
 }
 
+
+/*Função de disponibilidade de água por pessoa*/
+double consumption(double t)
+{
+    double P0 = 70000;
+    double D = 20;
+
+    double beta = 0.03;
+    double sigma = 0.02;
+
+    return P0 * D * exp((beta-sigma)*t);
+}
+
+double water(double t)
+{
+    double W0 = 2*pow(10,6);
+
+    double alpha = 0.6;
+    double efficiency = 0.6;
+    double A = 2000;
+
+    return W0 + (250*cos((M_PI/6)*t - (M_PI/6)) + 253) * efficiency * A - consumption(t);
+}
+
+double df_water(double t)
+{
+    return 78539.81633*cos(0.52359*t) - 14000*exp((0.01*t)) - 136034.95*sin(0.52359*t);
+}
+
+
+
 int main(void)
 {
-    double x0 = 0;
+    double x0 = 42;
     double tol = 1e-3;
     double nmax = 100;
 
 
     std::cout << "Estimativa inicial: " << x0 << std::endl;
-    double xm = newton(x0, &f, &df, tol, nmax);
+    double xm = newton(x0, water, df_water, tol, nmax);
 
     return 0;
 }
